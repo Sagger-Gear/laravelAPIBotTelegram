@@ -17,7 +17,7 @@ class LoginValidationRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Правила для заполнения поля авторизации
      *
      * @return array<string, mixed>
      */
@@ -29,12 +29,17 @@ class LoginValidationRequest extends FormRequest
         ];
     }
 
+    /**
+     * Вывод ошибок при неправильном заполнении полей
+     *
+     * @return array|string[]
+     */
     public function messages()
     {
         return parent::messages() +
             [
-                'login.required' => 'Поле обязательно для заполнения логина',
-                'password.required' => 'Поле обязательно для заполнения пароля'
+                'login.required' => 'Поле логина обязательно для заполнения логина',
+                'password.required' => 'Поле пароля обязательно для заполнения пароля'
             ];
     }
 }

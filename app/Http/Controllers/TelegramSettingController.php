@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditParametrsValidationRequest;
+use App\Http\Requests\ParametrsValidationRequest;
 use App\Models\TelegramSetting;
 use Illuminate\Http\Request;
 
 class TelegramSettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Возвращение представления index в telegramSetting, а также вывод всех настроек
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
@@ -19,68 +21,74 @@ class TelegramSettingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Вызов страницы создания настроек
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('telegramSetting.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Функция для создания настроек
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ParametrsValidationRequest $request)
     {
-        //
+        TelegramSetting::create($request->validated());
+        return redirect()->route('telegram-setting.index')->with(['success'=>true]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\TelegramSetting  $telegramSetting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(TelegramSetting $telegramSetting)
     {
-        //
+        # Здесь из-за ненадобности мы  перекидываем от куда пришел пользователь
+        # Так как мы всю информацию вывели на панели со списком
+        return back();
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Вызов страницы редактирования настроек
      *
      * @param  \App\Models\TelegramSetting  $telegramSetting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(TelegramSetting $telegramSetting)
     {
-        //
+        return view('telegramSetting.edit', compact('telegramSetting'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Функция для изменения настроек
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\TelegramSetting  $telegramSetting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, TelegramSetting $telegramSetting)
+    public function update(EditParametrsValidationRequest $request, TelegramSetting $telegramSetting)
     {
-        //
+        $telegramSetting->update($request->validated());
+        return back()->with(['success' => true]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Функция для удаления имеющейся настройки
      *
      * @param  \App\Models\TelegramSetting  $telegramSetting
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(TelegramSetting $telegramSetting)
     {
-        //
+        # Удаляем элемент
+        $telegramSetting->delete();
+        return back()->with(['successError' => true]);
     }
 }

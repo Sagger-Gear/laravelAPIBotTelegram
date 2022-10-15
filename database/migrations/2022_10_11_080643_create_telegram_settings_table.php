@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Миграция с созданием полей в бд для реализации создания или редактирования настроек в telegram
      *
      * @return void
      */
@@ -22,7 +22,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Отмена миграции
      *
      * @return void
      */

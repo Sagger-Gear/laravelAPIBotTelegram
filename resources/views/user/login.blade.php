@@ -1,3 +1,4 @@
+{{--Шаблон авторизации пользователей--}}
 @extends('welcome')
 
 @section('title', 'авторизация')
@@ -7,8 +8,10 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-md-6 col-12"></div>
-
-            <form method="POST" action="{{ route('login_post') }}">
+            @if(session()->has('auth'))
+                <div class="alert alert-danger mt-2">Логин или пароль не верны</div>
+            @endif
+            <form method="POST" action="{{ route('loginPost') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="inputLogin" class="form-label">Ваш логин</label>

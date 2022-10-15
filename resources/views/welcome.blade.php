@@ -1,3 +1,4 @@
+{{--Корневой шаблон с ссылками на другие шаблоны--}}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -26,7 +27,7 @@
                             <a class="nav-link" href="{{ route('telegram-setting.index') }}">Настройки Telegram</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Команды Telegram</a>
+                            <a class="nav-link" href="{{ route('telegram-command.index') }}">Команды Telegram</a>
                         </li>
                     @endauth
 
@@ -40,5 +41,9 @@
         </div>
     </nav>
     @yield('content')
+
+
+{{--Точка на которуюбудет подключен JS код--}}
+@stack('script')
 </body>
 </html>
